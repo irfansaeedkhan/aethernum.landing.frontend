@@ -2,6 +2,28 @@ import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 
+let scrollLockDepth = 0;
+let originalBodyOverflow = "";
+let originalHtmlOverflow = "";
+
+function lockScroll() {
+  if (scrollLockDepth === 0) {
+    originalBodyOverflow = document.body.style.overflow;
+    originalHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+  }
+  scrollLockDepth += 1;
+}
+
+function unlockScroll() {
+  scrollLockDepth = Math.max(0, scrollLockDepth - 1);
+  if (scrollLockDepth === 0) {
+    document.body.style.overflow = originalBodyOverflow;
+    document.documentElement.style.overflow = originalHtmlOverflow;
+  }
+}
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,16 +48,11 @@ export const Modal: React.FC<ModalProps> = ({
     };
     document.addEventListener("keydown", handleKeyDown);
 
-    // Prevent background scroll on both body and html
-    const originalBodyOverflow = document.body.style.overflow;
-    const originalHtmlOverflow = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    lockScroll();
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = originalBodyOverflow;
-      document.documentElement.style.overflow = originalHtmlOverflow;
+      unlockScroll();
     };
   }, [isOpen, onClose]);
 
