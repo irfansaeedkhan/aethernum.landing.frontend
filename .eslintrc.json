@@ -1,0 +1,11 @@
+{
+  "extends": ["next/core-web-vitals", "standard", "plugin:tailwindcss/recommended", "prettier", "plugin:security/recommended-legacy"],
+  "rules": {
+    "tailwindcss/classnames-order": "off",
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/enforces-shorthand": "off",
+    "tailwindcss/no-unnecessary-arbitrary-value": "off",
+    "tailwindcss/migration-from-tailwind-2": "off",
+    "no-unused-vars": "off"
+  }
+}
