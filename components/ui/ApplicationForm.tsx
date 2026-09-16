@@ -94,6 +94,14 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({
     setError(null);
     try {
       const apiData = mapToApi(data);
+      window.open(
+        "https://aethernum-dashboard.vercel.app/auth/login",
+        "_blank"
+      );
+      onSuccess();
+      reset();
+      return;
+
       const apiBaseUrl = getApiBaseUrl();
       const res = await fetch(`${apiBaseUrl}/blockchain/request`, {
         method: "POST",

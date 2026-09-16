@@ -24,7 +24,7 @@ const Header = () => {
         />
 
         <Link
-          href="https://app.aethernum.club/auth/login"
+          href="https://aethernum-dashboard.vercel.app/auth/login"
           className="cursor-pointer"
           target="_blank"
           rel="noopener noreferrer"
