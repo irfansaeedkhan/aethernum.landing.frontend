@@ -1,18 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { Modal } from "@/components/ui/Modal";
-import { ApplicationForm } from "@/components/ui/ApplicationForm";
-import { SuccessModal } from "@/components/ui/SuccessModal";
 import { useModal } from "../../hooks/ModalProvider";
 
+// Round 1: the invitation dialog lives only in ApplicationModal
+// (rendered once in ClientLayout). This section only triggers it;
+// rendering a second copy here used to mount the dialog twice.
 const HeroContent = () => {
-  const { modalOpen, setModalOpen } = useModal();
-  const [successOpen, setSuccessOpen] = useState(false);
+  const { setModalOpen } = useModal();
 
   return (
     <>
-      <div className="container absolute left-1/2 z-10 mx-auto -translate-x-1/2 px-6 text-center maxmobile:top-[34%] tablet:bottom-[32%] laptop:bottom-[18%]">
+      <div className="container absolute left-1/2 z-10 mx-auto -translate-x-1/2 px-6 text-center maxmobile:top-[34%] tablet:bottom-[32%] laptop:bottom-[18%] drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
         <h1 className="mx-auto font-heading text-3xl text-white tablet:text-[2.5rem] laptop:text-5xl xl:text-6xl">
           Don&apos;t seek Aethernum <br />
           Let Aethernum find you.
@@ -29,41 +27,8 @@ const HeroContent = () => {
           REQUEST AN INVITATION
         </button>
 
-        <p className="text-body mt-4 text-gray">If you&apos;re ready, we&apos;ll find you.</p>
+        <p className="text-body mt-4 text-white">If you&apos;re ready, we&apos;ll find you.</p>
       </div>
-      <Modal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        ariaLabel="Apply to Access the Protocol"
-        title="Apply to Access the Protocol"
-      >
-        <p className="text-white text-sm mb-6">
-          This protocol is accessible by invitation only.
-          <br />
-          Please complete the form below - every request is carefully reviewed.
-        </p>
-        <ApplicationForm
-          onSuccess={() => {
-            setSuccessOpen(true);
-          }}
-        />
-      </Modal>
-      <Modal
-        title="Applied to Access the Protocol"
-        isOpen={successOpen}
-        onClose={() => {
-          setModalOpen(false);
-          setSuccessOpen(false);
-        }}
-        ariaLabel="Success"
-      >
-        <SuccessModal
-          onClose={() => {
-            setModalOpen(false);
-            setSuccessOpen(false);
-          }}
-        />
-      </Modal>
     </>
   );
 };

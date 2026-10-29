@@ -80,10 +80,12 @@ export const Modal: React.FC<ModalProps> = ({
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-6">
+        {/* Round 1: the header stays pinned while a long form scrolls,
+            so the close control can never scroll out of reach. */}
+        <div className="sticky top-0 z-10 -mx-8 -mt-8 mb-6 flex items-center justify-between bg-[#151C1B] px-8 pt-8 md:-mx-10 md:-mt-6 md:px-10 md:pt-6">
           {title && <h2 className="text-lg md:text-xl font-bold text-white">{title}</h2>}
           <button
-            className=" text-white/80 hover:text-white focus:outline-none"
+            className="shrink-0 p-1 text-white/80 hover:text-white focus:outline-none"
             aria-label="Close modal"
             onClick={onClose}
           >

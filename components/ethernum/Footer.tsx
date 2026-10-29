@@ -62,7 +62,7 @@ const Footer = () => {
       </div>
       <div className="bg-gray w-full mt-12 py-6 px-6 text-center text-sm text-white">
         <p>
-          Copyright © 2025 Aethernum. All Rights Reserved &nbsp;|&nbsp; Before entering, make sure to read our{" "}
+          Copyright © 2026 Aethernum. All Rights Reserved &nbsp;|&nbsp; Before entering, make sure to read our{" "}
           <Link href="/terms" className="underline font-bold">
             Terms & Conditions
           </Link>{" "}

@@ -1,14 +1,12 @@
 "use client";
 
 import { useModal } from "@/hooks/ModalProvider";
-import { Modal } from "@/components/ui/Modal";
-import { useState } from "react";
-import { ApplicationForm } from "../ui/ApplicationForm";
-import { SuccessModal } from "../ui/SuccessModal";
 
+// Round 1: the invitation dialog lives only in ApplicationModal
+// (rendered once in ClientLayout). This section only triggers it;
+// rendering a second copy here used to mount the dialog twice.
 const FinalCTASection = () => {
-  const { modalOpen, setModalOpen } = useModal();
-  const [successOpen, setSuccessOpen] = useState(false);
+  const { setModalOpen } = useModal();
 
   return (
     <section className="py-20 bg-brand-charcoal text-center relative w-full aspect-[1438/664] bg-[url('/images/invitation.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center">
@@ -27,39 +25,6 @@ const FinalCTASection = () => {
           Only a few will be selected. <br /> No follow-ups. No marketing.
         </p>
       </div>
-      <Modal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        ariaLabel="Apply to Access the Protocol"
-        title="Apply to Access the Protocol"
-      >
-        <p className="text-white text-sm mb-6">
-          This protocol is accessible by invitation only.
-          <br />
-          Please complete the form below - every request is carefully reviewed.
-        </p>
-        <ApplicationForm
-          onSuccess={() => {
-            setSuccessOpen(true);
-          }}
-        />
-      </Modal>
-      <Modal
-        title="Applied to Access the Protocol"
-        isOpen={successOpen}
-        onClose={() => {
-          setModalOpen(false);
-          setSuccessOpen(false);
-        }}
-        ariaLabel="Success"
-      >
-        <SuccessModal
-          onClose={() => {
-            setModalOpen(false);
-            setSuccessOpen(false);
-          }}
-        />
-      </Modal>
       <div className="block laptop:hidden absolute top-0 left-0 w-full h-[28.9px] bg-repeat-x bg-[url('/images/tile-pattern.png')] bg-contain bg-center"></div>
     </section>
   );

@@ -791,7 +791,7 @@ const FAQSection = () => {
             </li>
           </ul>
 
-          <h4 className="font-bold text-brand-gold text-lg mt-6">2. Everything is verifiable on-chain</h4>
+          <h4 className="font-bold text-brand-gold text-lg mt-6">1. Everything is verifiable on-chain</h4>
           <p>Every operation leaves a footprint:</p>
           <ul className="space-y-3 ml-6">
             <li className="flex items-start gap-3">
@@ -817,14 +817,14 @@ const FAQSection = () => {
           </ul>
           <p>Ethereum does not lie.</p>
 
-          <h4 className="font-bold text-brand-gold text-lg mt-6">3. Distributed governance</h4>
+          <h4 className="font-bold text-brand-gold text-lg mt-6">2. Distributed governance</h4>
           <p>
             No single individual has control over funds or operational output.
             <br />
             The system is built to protect itself from human interference.
           </p>
 
-          <h4 className="font-bold text-brand-gold text-lg mt-6">4. Consistent results</h4>
+          <h4 className="font-bold text-brand-gold text-lg mt-6">3. Consistent results</h4>
           <p>
             Cycle stability is not the result of chance, but of repeatable patterns.
             <br />
@@ -1363,7 +1363,9 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq-section" className="py-20 bg-[#474F50] text-white">
+    // Round 1: scroll-mt keeps the heading clear of the fixed header
+    // when Learn More scrolls this section to the top of the viewport.
+    <section id="faq-section" className="py-20 bg-[#474F50] text-white scroll-mt-28">
       <div className="container mx-auto px-6 max-w-6xl">
         <h2 className="text-2xl tablet:text-4xl laptop:text-5xl font-bold font-heading text-center mb-4 laptop:mb-8 text-brand-gold">
           AETHERNUM FAQ
@@ -1408,10 +1410,17 @@ const FAQSection = () => {
                   id={`faq-answer-${index}`}
                   role="region"
                   aria-labelledby={`faq-question-${index}`}
+                  aria-hidden={!isOpen}
                   style={{
                     maxHeight: isOpen ? "5000px" : "0px",
                     opacity: isOpen ? 1 : 0,
-                    transition: "max-height 0.4s ease-in-out, opacity 0.4s ease-in-out",
+                    // Round 1: collapsed answers used to sit in the DOM
+                    // fully visible to extraction and assistive tech.
+                    // Visibility hides them while the height transition
+                    // still animates on open.
+                    visibility: isOpen ? "visible" : "hidden",
+                    transition:
+                      "max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s",
                   }}
                   className="overflow-hidden"
                 >
